@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>加速乐解密</title>
+      <link href="/2019/10/15/jiasule/"/>
+      <url>/2019/10/15/jiasule/</url>
+      
+        <content type="html"><![CDATA[<div align="middle"><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=407679465&auto=1&height=66"></iframe></div><p>   一般cookie里带__jsl_clearance这个字段一般是知道创宇的加速乐,原理是先加载js有js生成cookie带着生成的cookie才能正常访问<br>   __jsluid这个字段获取岁开始的就可以使用session连接.</p><pre><code>#coding:utf-8import requestsimport reimport execjsurl = &quot;http://www.mps.gov.cn/&quot;headers = {&#39;User-Agent&#39;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36&quot;}session = requests.session()response = session.get(url, headers=headers)# 生成cookie中的字段res = re.findall(&#39;&lt;script&gt;(.*?)&lt;/script&#39;, response.text)[0]js = res.replace(&#39;eval&#39;, &#39;var aaa=&#39;)chaojijs = execjs.compile(js)js2 = chaojijs.eval(&quot;aaa&quot;)js3 = re.search(&quot;document.(cookie.*?)\+\&#39;;Expires&quot;, js2).group(1)other_param = &#39;window={};&#39; + js3ctx1 = execjs.compile(other_param)jsl_params = ctx1.eval(&#39;cookie&#39;)print jsl_paramsprint response.cookiescookies = jsl_params.split(&#39;=&#39;)session.cookies.set(cookies[0], cookies[1])session.get(url, headers=headers)print(session.cookies)cookies = requests.utils.dict_from_cookiejar(session.cookies)res = session.post(url, headers=headers,cookies=cookies)if res.status_code == 200:res.encoding = res.apparent_encodingprint(res.text)</code></pre><p>获取cookie可以得到网页数据</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 爬虫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js逆向爬虫 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>就是想测试一下</title>
       <link href="/2018/01/22/2017-conclusion/"/>
       <url>/2018/01/22/2017-conclusion/</url>
