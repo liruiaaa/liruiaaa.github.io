@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>恒易融js解密</title>
+      <link href="/2019/10/18/heyirong/"/>
+      <url>/2019/10/18/heyirong/</url>
+      
+        <content type="html"><![CDATA[<div align="middle"><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=407679465&auto=1&height=66"></iframe></div><p>这个网站就是通过参数来加密输入浏览器的会失效因为参数跟时间有关变化很快<br><img src="/images/URLxiangqing.png" alt><br>所以先找到他在那里做加密在xhr上拦截找到断点这会找到是哪个js文件<br><img src="/images/xhr.png" alt><br>搜索需要得参数会发现都在一个地方<br><img src="/images/js.png" alt><br>然后通过读代码找到生成逻辑就可以</p><pre><code>import requestsimport urllib3urllib3.disable_warnings()import time## url = &#39;https://www.hengyirong.com/about/a_news/&#39;import hashlibdef get_header(url, data):    headers = {        &#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)&#39;                      &#39; Chrome/73.0.3683.75 Safari/537.36&#39;,        &#39;Host&#39;: &#39;www.hengyirong.com&#39;,        &#39;Accept&#39;: &#39;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,&#39;                  &#39;application/signed-exchange;v=b3&#39;,    }    times = str(int(time.time()))    list_1 = [        url,        &quot;1.0.0&quot;,        &quot;pc&quot;,        &quot;DHz@uEun&amp;k^LtqbhYqUN5wetfaO8p2&quot;,        times,        &quot;&quot;,        &quot;pc&quot;,        &quot;1.2.0&quot;,        data,    ]    res_2 = &#39;|&#39;.join(list_1)    print(res_2)    m = hashlib.md5()    m.update(res_2.encode(encoding=&#39;UTF-8&#39;))    x_sign = m.hexdigest()    headers[&#39;x-appid&#39;] = &#39;pc&#39;    headers[&#39;x-client-info&#39;] = &#39;pc&#39;    headers[&#39;x-t&#39;] = times    headers[&#39;x-ver&#39;] = &#39;1.1&#39;    headers[&#39;x-client-version&#39;] = &#39;1.2.0&#39;    headers[&#39;x-v&#39;] = &#39;1.0.0&#39;    headers[&#39;x-access-token&#39;] = &#39;&#39;    headers[&#39;x-sign&#39;] = x_sign    headers[&#39;Referer&#39;] = &#39;https://www.hengyirong.com/about/a_news/&#39;    headers[&#39;Content-Type&#39;] = &#39;application/json;charset=UTF-8&#39;    return headers# url = &#39;https://www.hengyirong.com/api/v1/content/catalog-list&#39;session = requests.session()# data = &#39;{&quot;id&quot;:9}&#39;# headers = get_header(&quot;/v1/content/catalog-list&quot;, data)# response = session.post(url, data=data, headers=headers, verify=False)url_2 = &#39;https://www.hengyirong.com/api/v1/content/catalog-detail&#39;data = &#39;{&quot;catalog_id&quot;:&quot;24&quot;,&quot;page&quot;:1}&#39;headers = get_header(&quot;/v1/content/catalog-detail&quot;, data)response_2 = session.post(url_2, data=data, headers=headers, verify=False)print response_2.text</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 爬虫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js逆向爬虫 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>加速乐解密</title>
       <link href="/2019/10/15/jiasule/"/>
       <url>/2019/10/15/jiasule/</url>
